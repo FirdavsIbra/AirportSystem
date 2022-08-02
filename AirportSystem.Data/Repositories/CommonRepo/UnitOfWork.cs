@@ -7,6 +7,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AirportSystem.Data.IRepositories.IAirportRepo;
+using AirportSystem.Data.IRepositories.IBlackListRepo;
+using AirportSystem.Data.IRepositories.ICommonRepo;
+using AirportSystem.Data.IRepositories.IEmployeeRepo;
+using AirportSystem.Data.IRepositories.IOrderRepo;
+using AirportSystem.Data.IRepositories.IPassengerRepo;
+using AirportSystem.Data.IRepositories.IPaymentRepo;
+using AirportSystem.Data.IRepositories.IRouleTableRepo;
+using AirportSystem.Data.IRepositories.ITicketRepo;
+using AirportSystem.Data.Repositories.AirplaneRepo;
+using AirportSystem.Data.Repositories.AirportRepo;
+using AirportSystem.Data.Repositories.BlackListRepo;
+using AirportSystem.Data.Repositories.EmployeeRepo;
+using AirportSystem.Data.Repositories.OrderRepo;
+using AirportSystem.Data.Repositories.PassengerRepo;
+using AirportSystem.Data.Repositories.PaymentRepo;
+using AirportSystem.Data.Repositories.RouleTableRepo;
+using AirportSystem.Data.Repositories.TicketRepo;
 
 namespace AirportSystem.Data.Repositories.CommonRepo
 {

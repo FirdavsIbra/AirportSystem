@@ -13,7 +13,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AirportSystem.Service.Services
+namespace AirportSystem.Service.Services.AirplaneServices
 {
     public class AirplaneService : IAirplaneService
     {
@@ -58,7 +58,7 @@ namespace AirportSystem.Service.Services
             return true;
         }
 
-        public async Task<IEnumerable<Airplane>> GetAllAsync(PaginationParams @params, Expression<Func<Airplane, bool>> expression = null)
+        public Task<IEnumerable<Airplane>> GetAllAsync(PaginationParams @params, Expression<Func<Airplane, bool>> expression = null)
         {
             var exist = unitOfWork.Airplanes.GetAll(expression => expression.ItemState != ItemState.Deleted);
 
@@ -67,7 +67,7 @@ namespace AirportSystem.Service.Services
             if (exist is null)
                 throw new Exception("Airplanes not found");
 
-            return exist;
+            return Task.FromResult<IEnumerable<Airplane>>(exist);
         }
 
         public async Task<Airplane> GetAsync(Expression<Func<Airplane, bool>> expression)
