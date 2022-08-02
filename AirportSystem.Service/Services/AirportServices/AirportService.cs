@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using AirportSystem.Data.IRepositories;
+using AirportSystem.Data.IRepositories.ICommonRepo;
 using AirportSystem.Domain.Entities.Airplanes;
 using AirportSystem.Domain.Entities.Airports;
 using AirportSystem.Service.DTO_s.Airports;

@@ -1,4 +1,4 @@
-﻿using AirportSystem.Data.IRepositories;
+﻿using AirportSystem.Data.IRepositories.ICommonRepo;
 using AirportSystem.Domain.Configurations;
 using AirportSystem.Domain.Entities.Airplanes;
 using AirportSystem.Domain.Enums;
