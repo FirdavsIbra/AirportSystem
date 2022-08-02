@@ -3,7 +3,9 @@ using AirportSystem.Domain.Configurations;
 using AirportSystem.Domain.Entities.Passengers;
 using AirportSystem.Domain.Enums;
 using AirportSystem.Service.DTO_s.Passengers;
+using AirportSystem.Service.Extentions;
 using AirportSystem.Service.Interfaces;
+using AirportSystem.Service.Mappers;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -20,8 +22,11 @@ namespace AirportSystem.Service.Services
 
         public PassengerService(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            this.mapper = mapper;
             this.unitOfWork = unitOfWork;
+            this.mapper = new MapperConfiguration(p =>
+            {
+                p.AddProfile<MappingProfile>();
+            }).CreateMapper();
         }
 
         public async Task<Passenger> CreateAsync(PassengerForCreation passengerForCreation)
@@ -56,7 +61,7 @@ namespace AirportSystem.Service.Services
             return true;
         }
 
-        public async Task<IEnumerable<Passenger>> GetAllAsync(PaginationParams @params, Expression<Func<Passenger, bool>> expression = null)
+        public Task<IEnumerable<Passenger>> GetAllAsync(PaginationParams @params, Expression<Func<Passenger, bool>> expression = null)
         {
             var exist = unitOfWork.Passengers.GetAll(expression => expression.ItemState != ItemState.Deleted);
 
@@ -65,7 +70,7 @@ namespace AirportSystem.Service.Services
             if (exist is null)
                 throw new Exception("Passengers not found");
 
-            return exist;
+            return Task.FromResult<IEnumerable<Passenger>>(exist);
         }
 
         public async Task<Passenger> GetAsync(Expression<Func<Passenger, bool>> expression)

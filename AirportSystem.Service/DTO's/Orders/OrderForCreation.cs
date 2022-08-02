@@ -4,6 +4,8 @@ namespace AirportSystem.Service.DTO_s.Orders
 {
     public class OrderForCreation
     {
+        public bool IsPaid { get; set; }
+
         [Required(AllowEmptyStrings = false)]
         public long PassengerId { get; set; }
 

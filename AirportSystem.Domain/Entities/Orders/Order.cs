@@ -7,6 +7,7 @@ namespace AirportSystem.Domain.Entities.Orders
 {
     public class Order : Auditable
     {
+        public bool IsPaid { get; set; }
         public long PassengerId { get; set; }
 
         [ForeignKey("PassengerId")]

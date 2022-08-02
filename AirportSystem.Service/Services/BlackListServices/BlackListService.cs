@@ -9,6 +9,7 @@ using AirportSystem.Domain.Enums;
 using AirportSystem.Service.DTO_s.BlackLists;
 using AirportSystem.Service.Extentions;
 using AirportSystem.Service.Interfaces;
+using AirportSystem.Service.Mappers;
 using AutoMapper;
 
 namespace AirportSystem.Service.Services.BlackListServices
@@ -20,8 +21,11 @@ namespace AirportSystem.Service.Services.BlackListServices
 
         public BlackListService(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            this.mapper = mapper;
             this.unitOfWork = unitOfWork;
+            this.mapper = new MapperConfiguration(p =>
+            {
+                p.AddProfile<MappingProfile>();
+            }).CreateMapper();
         }
 
         public async Task<BlackList> CreateAsync(BlackListForCreation blackListForCreation)

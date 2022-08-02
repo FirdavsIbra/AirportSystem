@@ -13,7 +13,7 @@ namespace AirportSystem.Data.DbContests
 {
     public class AirportSystemDbContext : DbContext
     {
-        private readonly string ConnectionString = "Host=localhost;Port=5432;Database=LesAiles;Username=postgres;Password=Xaxa2004";
+        private readonly string ConnectionString = "Host=localhost;Port=5432;Database=Airport;Username=postgres;Password=jama1226";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql(ConnectionString);
