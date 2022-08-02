@@ -31,7 +31,7 @@ namespace AirportSystem.Service.Services.EmployeeServices
             if (exist is not null)
                 throw new Exception("This employee already exists!");
 
-            var mappedAirport = mapper.Map<Employee>(exist);
+            var mappedAirport = mapper.Map<Employee>(employeeForCreation);
 
             mappedAirport.Created();
 

@@ -3,6 +3,7 @@ using AirportSystem.Domain.Configurations;
 using AirportSystem.Domain.Entities.Passengers;
 using AirportSystem.Domain.Enums;
 using AirportSystem.Service.DTO_s.Passengers;
+using AirportSystem.Service.Extentions;
 using AirportSystem.Service.Interfaces;
 using AutoMapper;
 using System;
@@ -31,7 +32,7 @@ namespace AirportSystem.Service.Services
             if (exist is not null)
                 throw new Exception("This Passenger already exists!");
 
-            var mappedPassenger = mapper.Map<Passenger>(exist);
+            var mappedPassenger = mapper.Map<Passenger>(passengerForCreation);
 
             mappedPassenger.Created();
 

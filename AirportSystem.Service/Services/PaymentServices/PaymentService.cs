@@ -3,6 +3,7 @@ using AirportSystem.Domain.Configurations;
 using AirportSystem.Domain.Entities.Payments;
 using AirportSystem.Domain.Enums;
 using AirportSystem.Service.DTO_s.Payments;
+using AirportSystem.Service.Extentions;
 using AirportSystem.Service.Interfaces;
 using AutoMapper;
 using System;
@@ -31,7 +32,7 @@ namespace AirportSystem.Service.Services
             if (exist is not null)
                 throw new Exception("This Payment already exists!");
 
-            var mappedPayment = mapper.Map<Payment>(exist);
+            var mappedPayment = mapper.Map<Payment>(paymentForCreation);
 
             mappedPayment.Created();
 

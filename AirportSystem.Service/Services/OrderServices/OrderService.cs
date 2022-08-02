@@ -3,6 +3,7 @@ using AirportSystem.Domain.Configurations;
 using AirportSystem.Domain.Entities.Orders;
 using AirportSystem.Domain.Enums;
 using AirportSystem.Service.DTO_s.Orders;
+using AirportSystem.Service.Extentions;
 using AirportSystem.Service.Interfaces;
 using AutoMapper;
 using System;
@@ -31,7 +32,7 @@ namespace AirportSystem.Service.Services
             if (exist is not null)
                 throw new Exception("This Order already exists!");
 
-            var mappedOrder = mapper.Map<Order>(exist);
+            var mappedOrder = mapper.Map<Order>(orderForCreation);
 
             mappedOrder.Created();
 
