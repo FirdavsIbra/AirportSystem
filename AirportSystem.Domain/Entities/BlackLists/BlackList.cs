@@ -12,7 +12,7 @@ namespace AirportSystem.Domain.Entities.BlackLists
 
         public long PassengerId { get; set; }
 
-        [ForeignKey("Passenger")]
+        [ForeignKey("PassengerId")]
         public Passenger Passenger { get; set; }
     }
 }

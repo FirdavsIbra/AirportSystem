@@ -37,7 +37,7 @@ namespace AirportSystem.Service.Services
             if (exist is not null)
                 throw new Exception("This Order already exists!");
 
-            var mappedOrder = mapper.Map<Order>(exist);
+            var mappedOrder = mapper.Map<Order>(orderForCreation);
 
             mappedOrder.Created();
 

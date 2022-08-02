@@ -35,7 +35,7 @@ namespace AirportSystem.Service.Services.BlackListServices
             if (exist is not null)
                 throw new Exception("This blacklist already exists!");
 
-            var mappedAirport = mapper.Map<BlackList>(exist);
+            var mappedAirport = mapper.Map<BlackList>(blackListForCreation);
 
             mappedAirport.Created();
 

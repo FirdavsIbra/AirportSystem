@@ -37,7 +37,7 @@ namespace AirportSystem.Service.Services.AirportServices
             if (exist is not null)
                 throw new Exception("This airport already exists!");
 
-            var mappedAirport = mapper.Map<Airport>(exist);
+            var mappedAirport = mapper.Map<Airport>(airportForCreation);
 
             mappedAirport.Created();
 

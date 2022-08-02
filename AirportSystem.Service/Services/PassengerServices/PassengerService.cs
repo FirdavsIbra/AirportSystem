@@ -36,7 +36,7 @@ namespace AirportSystem.Service.Services
             if (exist is not null)
                 throw new Exception("This Passenger already exists!");
 
-            var mappedPassenger = mapper.Map<Passenger>(exist);
+            var mappedPassenger = mapper.Map<Passenger>(passengerForCreation);
 
             mappedPassenger.Created();
 

@@ -31,14 +31,14 @@ namespace AirportSystem.Service.Mappers
         {
             CreateMap<Airplane, AirplaneForCreation>().ReverseMap();
             CreateMap<Airport, AirportForCreation>().ReverseMap();
-            CreateMap<BlackList, BlackListForCreation>().ReverseMap();
             CreateMap<Employee, EmployeeForCreation>().ReverseMap();
-            CreateMap<Order, OrderForCreation>().ReverseMap();
-            CreateMap<Passenger, PassengerForCreation>().ReverseMap();
+            CreateMap<Ticket, TicketForCreation>().ReverseMap();
             CreateMap<Payment, PaymentForCreation>().ReverseMap();
             CreateMap<RouleTable, RoulTableForCreation>().ReverseMap();
-            CreateMap<Ticket, TicketForCreation>().ReverseMap();
-
+            CreateMap<Passenger, PassengerForCreation>().ReverseMap();
+            CreateMap<Order, OrderForCreation>().ReverseMap();
+            CreateMap<BlackList, BlackListForCreation>().ReverseMap();
+            
         }
     }
 }

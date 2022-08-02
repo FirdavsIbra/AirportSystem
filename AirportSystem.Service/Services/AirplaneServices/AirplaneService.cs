@@ -39,7 +39,7 @@ namespace AirportSystem.Service.Services.AirplaneServices
             if (exist is not null)
                 throw new Exception("This airplane already exists!");
 
-            var mappedAirplane = mapper.Map<Airplane>(exist);
+            var mappedAirplane = mapper.Map<Airplane>(airplaneForCreation);
 
             mappedAirplane.Created();
 

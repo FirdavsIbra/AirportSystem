@@ -36,7 +36,7 @@ namespace AirportSystem.Service.Services
             if (exist is not null)
                 throw new Exception("This Payment already exists!");
 
-            var mappedPayment = mapper.Map<Payment>(exist);
+            var mappedPayment = mapper.Map<Payment>(paymentForCreation);
 
             mappedPayment.Created();
 
