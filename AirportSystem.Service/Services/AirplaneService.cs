@@ -1,7 +1,9 @@
 ﻿using AirportSystem.Data.IRepositories;
+using AirportSystem.Domain.Configurations;
 using AirportSystem.Domain.Entities.Airplanes;
 using AirportSystem.Domain.Enums;
 using AirportSystem.Service.DTO_s.Airplanes;
+using AirportSystem.Service.Extentions;
 using AirportSystem.Service.Interfaces;
 using AutoMapper;
 using System;
@@ -56,9 +58,16 @@ namespace AirportSystem.Service.Services
             return true;
         }
 
-        public Task<IEnumerable<Airplane>> GetAllAsync(Expression<Func<Airplane, bool>> expression = null)
+        public async Task<IEnumerable<Airplane>> GetAllAsync(PaginationParams @params, Expression<Func<Airplane, bool>> expression = null)
         {
-            throw new NotImplementedException();
+            var exist = unitOfWork.Airplanes.GetAll(expression => expression.ItemState != ItemState.Deleted);
+
+            exist.ToPeged(@params);
+
+            if (exist is null)
+                throw new Exception("Airplanes not found");
+
+            return exist;
         }
 
         public async Task<Airplane> GetAsync(Expression<Func<Airplane, bool>> expression)

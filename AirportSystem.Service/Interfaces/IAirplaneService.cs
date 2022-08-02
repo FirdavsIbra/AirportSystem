@@ -1,4 +1,5 @@
-﻿using AirportSystem.Domain.Entities.Airplanes;
+﻿using AirportSystem.Domain.Configurations;
+using AirportSystem.Domain.Entities.Airplanes;
 using AirportSystem.Service.DTO_s.Airplanes;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace AirportSystem.Service.Interfaces
         Task<Airplane> CreateAsync(AirplaneForCreation airplaneForCreation);
         Task<Airplane> UpdateAsync(long id, AirplaneForCreation airplaneForCreation);
         Task<bool> DeleteAsync(Expression<Func<Airplane, bool>> expression);
-        Task<IEnumerable<Airplane>> GetAllAsync(Expression<Func<Airplane, bool>> expression = null);
+        Task<IEnumerable<Airplane>> GetAllAsync(PaginationParams @params, Expression<Func<Airplane, bool>> expression = null);
         Task<Airplane> GetAsync(Expression<Func<Airplane, bool>> expression);
     }
 }
