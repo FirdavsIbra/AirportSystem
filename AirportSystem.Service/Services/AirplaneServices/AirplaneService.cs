@@ -62,7 +62,7 @@ namespace AirportSystem.Service.Services
         {
             var exist = unitOfWork.Airplanes.GetAll(expression => expression.ItemState != ItemState.Deleted);
 
-            exist.ToPeged(@params);
+            exist.ToPaged(@params);
 
             if (exist is null)
                 throw new Exception("Airplanes not found");

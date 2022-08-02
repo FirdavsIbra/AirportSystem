@@ -7,6 +7,7 @@ namespace AirportSystem.Service.DTO_s.Orders
         [Required(AllowEmptyStrings = false)]
         public long PassengerId { get; set; }
 
+
         [Required(AllowEmptyStrings = false)]
         public long TicketId { get; set; }
 

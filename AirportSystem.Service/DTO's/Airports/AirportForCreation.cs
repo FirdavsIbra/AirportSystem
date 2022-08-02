@@ -11,6 +11,8 @@ namespace AirportSystem.Service.DTO_s.Airports
     {
         [Required(AllowEmptyStrings = false), MaxLength(64)]
         public string Name { get; set; }
+
+
         [Required(AllowEmptyStrings = false)]
         public string Address { get; set; }
         public long EmployeeId { get; set; }
