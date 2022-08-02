@@ -3,7 +3,7 @@
     public enum AgeCategory
     {
         Baby = 1,
-        Child
+        Child,
         Adult,
     }
 }

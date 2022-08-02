@@ -13,12 +13,4 @@
     <ProjectReference Include="..\AirportSystem.Domain\AirportSystem.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTO%27s\Orders\" />
-    <Folder Include="DTO%27s\Passengers\" />
-    <Folder Include="DTO%27s\Payments\" />
-    <Folder Include="DTO%27s\RouleTables\" />
-    <Folder Include="DTO%27s\Tickets\" />
-  </ItemGroup>
-
 </Project>

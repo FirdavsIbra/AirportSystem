@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace AirportSystem.Service.DTO_s.Employees
@@ -22,7 +23,7 @@ namespace AirportSystem.Service.DTO_s.Employees
         [Required(AllowEmptyStrings = false)]
         public DateTime DateOfBirth { get; set; }
         
-        [Required]
+        [Required(AllowEmptyStrings = false)]
         public string Address { get; set; }
         
         [Required, MaxLength(32)]
@@ -31,14 +32,16 @@ namespace AirportSystem.Service.DTO_s.Employees
         [Required, MaxLength(16),Phone]
         public string Phone { get; set; }
         
-        [Required]
+        [Required(AllowEmptyStrings = false)]
         public Gender Gender { get; set; }
 
-        [Required]
+        [Required(AllowEmptyStrings = false)]
         public Department Department { get; set; }
         
-        [Required, DataType(DataType.Password)]
+        [Required, DataType(DataType.Password),JsonIgnore]
         public string Password { get; set; }
+        
+        [Required(AllowEmptyStrings = false)]
         public decimal Salary { get; set; }
     }
 }

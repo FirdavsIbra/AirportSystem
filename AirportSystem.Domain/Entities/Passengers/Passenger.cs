@@ -15,7 +15,7 @@ namespace AirportSystem.Domain.Entities.Passengers
         [MaxLength(64)]
         public string Email { get; set; }
         [MaxLength(16)]
-        public string PasportNumber { get; set; }
+        public string PassportNumber { get; set; }
         public Gender Gender { get; set; }
         public string CountryCode { get; set; }
         public string Address { get; set; }
