@@ -63,6 +63,7 @@ namespace AirportSystem
             
             using (IUnitOfWork unitOfWork = new UnitOfWork(dbContext))
             {
+                PassengerService passengerService = new PassengerService(Mapper, unitOfWork);
             }
             IMapper Mapper1 = new MapperConfiguration
                 (cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
