@@ -11,6 +11,8 @@ namespace AirportSystem.Service.DTO_s.BlackLists
     {
         [Required]
         public DateTime Duration { get; set; }
+        
+        [Required]
         public long PassengerId { get; set; }
 
     }

@@ -7,6 +7,7 @@ namespace AirportSystem.Service.DTO_s.RoulTable
     {
         [Required(AllowEmptyStrings = false)]
         public long AirplaneId { get; set; }
+
         
         [Required(AllowEmptyStrings = false)]
         public FlightStatus FligthStatus { get; set; }
