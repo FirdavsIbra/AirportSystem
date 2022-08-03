@@ -12,6 +12,7 @@ using AirportSystem.Service.Services.AirplaneServices;
 using AirportSystem.Service.Services.EmployeeServices;
 using AutoMapper;
 using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace AirportSystem
@@ -51,11 +52,7 @@ namespace AirportSystem
                 Salary = 124232,
 
             };
-
-
-
             
-
             IMapper Mapper = new MapperConfiguration
                 (cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
 
@@ -63,20 +60,12 @@ namespace AirportSystem
             
             using (IUnitOfWork unitOfWork = new UnitOfWork(dbContext))
             {
-                PassengerService passengerService = new PassengerService(Mapper, unitOfWork);
+                EmployeeService employeeService = new EmployeeService(Mapper, unitOfWork);
+
+                var bb = await employeeService.DeleteAsync(Expressi => Expressi.Id == 2);
+
+                Console.WriteLine(bb);
             }
-            IMapper Mapper1 = new MapperConfiguration
-                (cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
-
-            AirportSystemDbContext dbContext1 = new AirportSystemDbContext();
-
-            using (IUnitOfWork unitOfWork1 = new UnitOfWork(dbContext1))
-            {
-                EmployeeService employeeService = new EmployeeService(Mapper1, unitOfWork1);
-
-                var bb = await employeeService.CreateAsync(employeeForCreation);
-            }
-
         }
     }
 }

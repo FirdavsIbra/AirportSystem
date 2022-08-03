@@ -55,8 +55,8 @@ namespace AirportSystem.Service.Services
                 throw new Exception("This Passenger not found!");
 
             exist.Deleted();
-
-            await unitOfWork.Passengers.DeleteAsync(expression);
+            
+            await unitOfWork.SaveChangesAsync();
 
             return true;
         }

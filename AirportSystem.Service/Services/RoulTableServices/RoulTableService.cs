@@ -50,7 +50,7 @@ namespace AirportSystem.Service.Services
 
             exist.Deleted();
 
-            await unitOfWork.RouleTables.DeleteAsync(expression);
+            await unitOfWork.SaveChangesAsync();
 
             return true;
         }
