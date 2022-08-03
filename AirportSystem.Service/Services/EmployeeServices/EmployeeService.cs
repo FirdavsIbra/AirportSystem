@@ -30,7 +30,7 @@ namespace AirportSystem.Service.Services.EmployeeServices
         }
         public async Task<Employee> CreateAsync(EmployeeForCreation employeeForCreation)
         {
-            var exist = await unitOfWork.Employees.GetAsync(a => a.Email == employeeForCreation.Email);
+            var exist = await unitOfWork.Employees.GetAsync(a => a.Email == employeeForCreation.Email && a.PassportNumber == employeeForCreation.PassportNumber);
 
             if (exist is not null)
                 throw new Exception("This employee already exists!");

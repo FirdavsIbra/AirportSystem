@@ -16,7 +16,7 @@ namespace AirportSystem.Domain.Entities.Employees
         [MaxLength(64)]
         public string Email { get; set; }
         [MaxLength(16)]
-        public string PasportNumber { get; set; }
+        public string PassportNumber { get; set; }
         public Gender Gender { get; set; }
         public string Address { get; set; }
         public decimal Salary { get; set; }

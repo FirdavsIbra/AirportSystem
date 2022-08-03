@@ -38,14 +38,14 @@ namespace AirportSystem
 
             EmployeeForCreation employeeForCreation = new EmployeeForCreation()
             {
-                Email = "bfdjkvbdf@gmial.com",
+                Email = "bfdjkdvdasdff@gmial.com",
                 Address = "Toshkent",
                 DateOfBirth = DateTime.UtcNow,
-                FirstName = "Botirali",
+                FirstName = "Toxirali",
                 Department = Department.FoodServiceWorker,
                 Gender = Gender.Male,
                 LastName = "Botiraliev",
-                PassportNumber = "65432gbfvf",
+                PassportNumber = "AC65432435f",
                 Password = "cvfC2131@d",
                 Phone = "12345444",
                 Salary = 124232,
@@ -73,8 +73,8 @@ namespace AirportSystem
             using (IUnitOfWork unitOfWork1 = new UnitOfWork(dbContext1))
             {
                 EmployeeService employeeService = new EmployeeService(Mapper1, unitOfWork1);
-                
 
+                var bb = await employeeService.CreateAsync(employeeForCreation);
             }
 
         }
