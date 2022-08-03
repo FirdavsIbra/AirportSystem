@@ -27,17 +27,17 @@ namespace AirportSystem
 
             EmployeeForCreation employeeForCreation = new EmployeeForCreation()
             {
-                FirstName = "Ivan",
-                LastName = "Ivanov",
-                UserName = "IVa05",
+                FirstName = "Ivawdan",
+                LastName = "Ivanadadwov",
+                UserName = "IVawda05",
                 Address = "Main str. 1",
                 Department = Department.Dispatcher,
-                Email = "IVa@gmail.com",
+                Email = "Ilaa@gmail.com",
                 Gender = Gender.Male,
-                Password = "iva00990",
-                Phone = "5487236",
+                Password = "iva009asada90",
+                Phone = "54872136",
                 Salary = 90000,
-                PassportNumber = "RU1204140KL",
+                PassportNumber = "AK13021410342",
                 DateOfBirth = DateTime.UtcNow
             };
 
@@ -62,13 +62,7 @@ namespace AirportSystem
             using (IUnitOfWork unitOfWork = new UnitOfWork(dbContext))
             {
                 EmployeeService employeeService = new EmployeeService(mapper, unitOfWork);
-                var result = await employeeService.ChangePasswordAsync(new EmployeeForChangePassword()
-                {
-                    Username = "IVa05",
-                    OldPassword = "iva00990",
-                    NewPassword = "iva00991",
-                    ConfirmPassword = "iva00991"
-                });
+                var result = await employeeService.CreateAsync(employeeForCreation);
 
                 Console.WriteLine("Done");
             }

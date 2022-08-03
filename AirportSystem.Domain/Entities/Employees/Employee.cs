@@ -3,10 +3,12 @@ using AirportSystem.Domain.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace AirportSystem.Domain.Entities.Employees
 {
     public class Employee : Auditable
     {
+        
         [MaxLength(64)]
         public string FirstName { get; set; }
         
@@ -26,6 +28,8 @@ namespace AirportSystem.Domain.Entities.Employees
         public Gender Gender { get; set; }
         public string Address { get; set; }
         public decimal Salary { get; set; }
+        
+        
         public string Password { get; set; }
         public DateTime DateOfBirth { get; set; }
         public Department Department { get; set; }
