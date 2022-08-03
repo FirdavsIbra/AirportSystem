@@ -76,7 +76,7 @@ namespace AirportSystem.Service.Services.AirportServices
 
             exist.Deleted();
 
-            await unitOfWork.Airports.DeleteAsync(expression);
+            await unitOfWork.SaveChangesAsync();
 
             return true;
         }

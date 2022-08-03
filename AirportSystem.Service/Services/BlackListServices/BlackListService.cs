@@ -74,7 +74,7 @@ namespace AirportSystem.Service.Services.BlackListServices
 
             exist.Deleted();
 
-            await unitOfWork.BlackLists.DeleteAsync(expression);
+            await unitOfWork.SaveChangesAsync();
 
             return true;
 

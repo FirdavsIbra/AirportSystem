@@ -12,11 +12,8 @@ using AirportSystem.Service.Services.AirplaneServices;
 using AirportSystem.Service.Services.EmployeeServices;
 using AutoMapper;
 using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
-using AirportSystem.Domain.Configurations;
-using AirportSystem.Domain.Entities.Passengers;
-using AirportSystem.Service.Interfaces.IDeleteForAdmins;
-using AirportSystem.Service.Services.DeleteForAdmins;
 
 namespace AirportSystem
 {
@@ -27,12 +24,35 @@ namespace AirportSystem
         static async Task Main(string[] args)
         {
 
+            PassengerForCreation passengerForCreation = new PassengerForCreation()
+            {
+                Address = "Toshkent vil",
+                FirstName = "Toxir",
+                LastName = "Khanov",
+                AgeCategory = AgeCategory.Adult,
+                CountryCode = "Uz",
+                Email = "dlkbmfdlb@gmail.com",
+                Gender = Gender.Male,
+                PassportNumber = "24crcgveg",
+                Phone = "123456789"
+            };
+
+            EmployeeForCreation employeeForCreation = new EmployeeForCreation()
+            {
+                Email = "bfdjkdvdasdff@gmial.com",
+                Address = "Toshkent",
+                DateOfBirth = DateTime.UtcNow,
+                FirstName = "Toxirali",
+                Department = Department.FoodServiceWorker,
+                Gender = Gender.Male,
+                LastName = "Botiraliev",
+                PassportNumber = "AC65432435f",
+                Password = "cvfC2131@d",
+                Phone = "12345444",
+                Salary = 124232,
+
+            };
             
-
-
-
-            
-
             IMapper Mapper = new MapperConfiguration
                 (cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
 
@@ -40,23 +60,12 @@ namespace AirportSystem
             
             using (IUnitOfWork unitOfWork = new UnitOfWork(dbContext))
             {
-                PassengerService passengerService = new PassengerService(Mapper, unitOfWork);
+                EmployeeService employeeService = new EmployeeService(Mapper, unitOfWork);
+
+                var bb = await employeeService.DeleteAsync(Expressi => Expressi.Id == 2);
+
+                Console.WriteLine(bb);
             }
-            IMapper Mapper1 = new MapperConfiguration
-                (cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
-
-            AirportSystemDbContext dbContext1 = new AirportSystemDbContext();
-
-            using (IUnitOfWork unitOfWork1 = new UnitOfWork(dbContext1))
-            {
-                EmployeeService employeeService = new EmployeeService(Mapper1, unitOfWork1);
-
-            }
-            
-            IDeleteForAdmin<Passenger> deleteForAdmin = new DeleteForAdmin<Passenger>();
-            await deleteForAdmin.DeleteManyAsync(e => e.Id < 5);
-
-            Console.WriteLine("Done");
         }
     }
 }

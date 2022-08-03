@@ -59,7 +59,7 @@ namespace AirportSystem.Service.Services.AirplaneServices
 
             exist.Deleted();
 
-            await unitOfWork.Airplanes.DeleteAsync(expression);
+            await unitOfWork.SaveChangesAsync();
 
             return true;
         }

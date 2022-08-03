@@ -50,8 +50,8 @@ namespace AirportSystem.Service.Services
 
             exist.Deleted();
 
-            await unitOfWork.Tickets.DeleteAsync(expression);
-
+            await unitOfWork.SaveChangesAsync();
+            
             return true;
         }
 
