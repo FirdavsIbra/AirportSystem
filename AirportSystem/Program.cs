@@ -24,47 +24,53 @@ namespace AirportSystem
         static async Task Main(string[] args)
         {
 
-            PassengerForCreation passengerForCreation = new PassengerForCreation()
-            {
-                Address = "Toshkent vil",
-                FirstName = "Toxir",
-                LastName = "Khanov",
-                AgeCategory = AgeCategory.Adult,
-                CountryCode = "Uz",
-                Email = "dlkbmfdlb@gmail.com",
-                Gender = Gender.Male,
-                PassportNumber = "24crcgveg",
-                Phone = "123456789"
-            };
 
             EmployeeForCreation employeeForCreation = new EmployeeForCreation()
             {
-                Email = "bfdjkdvdasdff@gmial.com",
-                Address = "Toshkent",
-                DateOfBirth = DateTime.UtcNow,
-                FirstName = "Toxirali",
-                Department = Department.FoodServiceWorker,
+                FirstName = "Ivan",
+                LastName = "Ivanov",
+                UserName = "IVa05",
+                Address = "Main str. 1",
+                Department = Department.Dispatcher,
+                Email = "IVa@gmail.com",
                 Gender = Gender.Male,
-                LastName = "Botiraliev",
-                PassportNumber = "AC65432435f",
-                Password = "cvfC2131@d",
-                Phone = "12345444",
-                Salary = 124232,
-
+                Password = "iva00990",
+                Phone = "5487236",
+                Salary = 90000,
+                PassportNumber = "RU1204140KL",
+                DateOfBirth = DateTime.UtcNow
             };
+
+            /*PassengerForCreation passengerForCreation = new PassengerForCreation()
+            {
+                Address = "Germany",
+                FirstName = "Nouer",
+                LastName = "Ter",
+                AgeCategory = AgeCategory.Adult,
+                CountryCode = "GER",
+                Email = "nnAgele@gmail.com",
+                Gender = Gender.Male,
+                PassportNumber = "ML120411KMl",
+                Phone = "0012456"
+            };*/
             
-            IMapper Mapper = new MapperConfiguration
+            IMapper mapper = new MapperConfiguration
                 (cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
 
             AirportSystemDbContext dbContext = new AirportSystemDbContext();
             
             using (IUnitOfWork unitOfWork = new UnitOfWork(dbContext))
             {
-                EmployeeService employeeService = new EmployeeService(Mapper, unitOfWork);
+                EmployeeService employeeService = new EmployeeService(mapper, unitOfWork);
+                var result = await employeeService.ChangePasswordAsync(new EmployeeForChangePassword()
+                {
+                    Username = "IVa05",
+                    OldPassword = "iva00990",
+                    NewPassword = "iva00991",
+                    ConfirmPassword = "iva00991"
+                });
 
-                var bb = await employeeService.DeleteAsync(Expressi => Expressi.Id == 2);
-
-                Console.WriteLine(bb);
+                Console.WriteLine("Done");
             }
         }
     }

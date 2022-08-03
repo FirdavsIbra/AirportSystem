@@ -4,9 +4,9 @@ using System.Text;
 
 namespace AirportSystem.Service.Extentions
 {
-    public class Security
+    public static class Security
     {
-        public static string GetHash(string password)
+        public static string GetHash(this string password)
         {
             using (var sha256 = SHA256.Create())
             {

@@ -9,10 +9,16 @@ namespace AirportSystem.Domain.Entities.Employees
     {
         [MaxLength(64)]
         public string FirstName { get; set; }
+        
         [MaxLength(64)]
         public string LastName { get; set; }
+        
+        [MaxLength(64)]
+        public string UserName { get; set; }
+        
         [MaxLength(16)]
         public string Phone { get; set; }
+        
         [MaxLength(64)]
         public string Email { get; set; }
         [MaxLength(16)]

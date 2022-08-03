@@ -18,6 +18,8 @@ namespace AirportSystem.Service.DTO_s.Employees
         [Required(AllowEmptyStrings = false), MaxLength(64)]
         public string LastName { get; set; }
 
+        [Required(AllowEmptyStrings = false), MaxLength(64)]
+        public string UserName { get; set; }
         
         [Required(AllowEmptyStrings = false), EmailAddress]
         public string Email { get; set; }

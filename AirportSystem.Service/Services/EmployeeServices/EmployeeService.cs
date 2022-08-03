@@ -46,6 +46,38 @@ namespace AirportSystem.Service.Services.EmployeeServices
             return result;
         }
 
+        public async Task<bool> CheckLoginAsync(string username, string password)
+        {
+            var oldEmp =  await unitOfWork.Employees.GetAsync(emp => emp.UserName == username && emp.Password == password);
+
+            if (oldEmp is null)
+                throw new Exception("This employee does not exist!");
+
+            if (oldEmp.Password != password.GetHash())
+            {
+                throw new Exception("Wrong password!");
+            }
+            return true;
+        }
+        public async Task<Employee> ChangePasswordAsync(EmployeeForChangePassword forChangePassword)
+        {
+            var oldEmp = await unitOfWork.Employees.GetAsync(emp => emp.UserName == forChangePassword.Username);
+            
+            if(oldEmp is null)
+                throw new Exception("This employee does not exist!");
+            
+            if(oldEmp.Password.GetHash() != forChangePassword.OldPassword.GetHash())
+                throw new Exception("Password is wrong!");
+
+            if(forChangePassword.NewPassword != forChangePassword.ConfirmPassword)
+                throw new Exception("Passwords are not equal!");
+            
+            oldEmp.Password = forChangePassword.NewPassword.GetHash();
+            unitOfWork.Employees.UpdateAsync(oldEmp);
+            await unitOfWork.SaveChangesAsync();
+            return oldEmp;
+        }
+
         public async Task<Employee> UpdateAsync(long id, EmployeeForCreation employeeForCreation)
         {
             var exist = await unitOfWork.Employees.GetAsync(a => a.Id == id);
@@ -81,7 +113,7 @@ namespace AirportSystem.Service.Services.EmployeeServices
 
         public Task<IEnumerable<Employee>> GetAllAsync(PaginationParams @params, Expression<Func<Employee, bool>> expression = null)
         {
-            var exist = unitOfWork.Employees.GetAll(expression => expression.ItemState != ItemState.Deleted);
+            var exist = unitOfWork.Employees.GetAll(e => e.ItemState != ItemState.Deleted);
 
             exist.ToPaged(@params);
 
@@ -100,5 +132,7 @@ namespace AirportSystem.Service.Services.EmployeeServices
 
             return exist;
         }
+
+      
     }
 }
