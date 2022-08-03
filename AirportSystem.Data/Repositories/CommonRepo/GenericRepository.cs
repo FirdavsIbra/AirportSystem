@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AirportSystem.Data.Repositories.CommonRepo
 {
-    public abstract class GenericRepository<T> : IGenericRepository<T> where T : Auditable
+    public  class GenericRepository<T> : IGenericRepository<T> where T : Auditable
     {
         private readonly AirportSystemDbContext _context;
         private readonly DbSet<T> _dbSet;
@@ -25,8 +25,12 @@ namespace AirportSystem.Data.Repositories.CommonRepo
 
         public async Task<bool> DeleteAsync(Expression<Func<T, bool>> expression)
         {
-            var entity = await _dbSet.FirstOrDefaultAsync(expression);
+            var entity = await GetAsync(expression);
 
+            if (entity is  null)
+            {
+                return false;
+            }
             _dbSet.Remove(entity);
 
             return true;
@@ -40,5 +44,10 @@ namespace AirportSystem.Data.Repositories.CommonRepo
 
         public IQueryable<T> GetAll(Expression<Func<T, bool>> expression = null)
             => expression is null ? _dbSet : _dbSet.Where(expression);
+        
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace AirportSystem.Data.IRepositories.ICommonRepo
         Task<bool> DeleteAsync(Expression<Func<T, bool>> expression);
         Task<T> GetAsync(Expression<Func<T, bool>> expression);
         IQueryable<T> GetAll(Expression<Func<T, bool>> expression = null);
+        Task SaveChangesAsync();
     }
 }
