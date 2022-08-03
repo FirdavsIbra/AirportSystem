@@ -8,14 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using AirportSystem.Domain.Entities.Airports;
 using AirportSystem.Service.DTO_s.Airports;
-using AirportSystem.Domain.Entities.Passengers;
-using AirportSystem.Service.DTO_s.Passengers;
 using AirportSystem.Domain.Entities.BlackLists;
 using AirportSystem.Service.DTO_s.BlackLists;
 using AirportSystem.Domain.Entities.Employees;
 using AirportSystem.Service.DTO_s.Employees;
 using AirportSystem.Domain.Entities.Orders;
 using AirportSystem.Service.DTO_s.Orders;
+using AirportSystem.Domain.Entities.Passengers;
+using AirportSystem.Service.DTO_s.Passengers;
 using AirportSystem.Domain.Entities.Payments;
 using AirportSystem.Service.DTO_s.Payments;
 using AirportSystem.Domain.Entities.RouleTables;
@@ -31,13 +31,14 @@ namespace AirportSystem.Service.Mappers
         {
             CreateMap<Airplane, AirplaneForCreation>().ReverseMap();
             CreateMap<Airport, AirportForCreation>().ReverseMap();
-            CreateMap<Passenger, PassengerForCreation>().ReverseMap();
-            CreateMap<BlackList, BlackListForCreation>().ReverseMap();
             CreateMap<Employee, EmployeeForCreation>().ReverseMap();
-            CreateMap<Order, OrderForCreation>().ReverseMap();
+            CreateMap<Ticket, TicketForCreation>().ReverseMap();
             CreateMap<Payment, PaymentForCreation>().ReverseMap();
             CreateMap<RouleTable, RoulTableForCreation>().ReverseMap();
-            CreateMap<Ticket, TicketForCreation>().ReverseMap();
+            CreateMap<Passenger, PassengerForCreation>().ReverseMap();
+            CreateMap<Order, OrderForCreation>().ReverseMap();
+            CreateMap<BlackList, BlackListForCreation>().ReverseMap();
+            
         }
     }
 }

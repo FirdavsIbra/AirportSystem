@@ -9,6 +9,7 @@ using AirportSystem.Domain.Enums;
 using AirportSystem.Service.DTO_s.Employees;
 using AirportSystem.Service.Extentions;
 using AirportSystem.Service.Interfaces;
+using AirportSystem.Service.Mappers;
 using AutoMapper;
 
 namespace AirportSystem.Service.Services.EmployeeServices
@@ -21,12 +22,15 @@ namespace AirportSystem.Service.Services.EmployeeServices
 
         public EmployeeService(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            this.mapper = mapper;
             this.unitOfWork = unitOfWork;
+            this.mapper = new MapperConfiguration(p =>
+            {
+                p.AddProfile<MappingProfile>();
+            }).CreateMapper();
         }
         public async Task<Employee> CreateAsync(EmployeeForCreation employeeForCreation)
         {
-            var exist = await unitOfWork.Employees.GetAsync(a => a.Email == employeeForCreation.Email);
+            var exist = await unitOfWork.Employees.GetAsync(a => a.Email == employeeForCreation.Email && a.PassportNumber == employeeForCreation.PassportNumber);
 
             if (exist is not null)
                 throw new Exception("This employee already exists!");

@@ -5,6 +5,7 @@ using AirportSystem.Domain.Enums;
 using AirportSystem.Service.DTO_s.Orders;
 using AirportSystem.Service.Extentions;
 using AirportSystem.Service.Interfaces;
+using AirportSystem.Service.Mappers;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace AirportSystem.Service.Services
 {
+#pragma warning disable
     public class OrderService : IOrderService
     {
 
@@ -21,8 +23,11 @@ namespace AirportSystem.Service.Services
 
         public OrderService(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            this.mapper = mapper;
             this.unitOfWork = unitOfWork;
+            this.mapper = new MapperConfiguration(p =>
+            {
+                p.AddProfile<MappingProfile>();
+            }).CreateMapper();
         }
 
         public async Task<Order> CreateAsync(OrderForCreation orderForCreation)
@@ -57,7 +62,8 @@ namespace AirportSystem.Service.Services
             return true;
         }
 
-        public async Task<IEnumerable<Order>> GetAllAsync(PaginationParams @params, Expression<Func<Order, bool>> expression = null)
+
+        public  Task<IEnumerable<Order>> GetAllAsync(PaginationParams @params, Expression<Func<Order, bool>> expression = null)
         {
             var exist = unitOfWork.Orders.GetAll(expression => expression.ItemState != ItemState.Deleted);
 
@@ -66,7 +72,7 @@ namespace AirportSystem.Service.Services
             if (exist is null)
                 throw new Exception("Orders not found");
 
-            return exist;
+            return Task.FromResult<IEnumerable<Order>>(exist);
         }
 
         public async Task<Order> GetAsync(Expression<Func<Order, bool>> expression)

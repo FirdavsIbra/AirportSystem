@@ -5,6 +5,7 @@ using AirportSystem.Domain.Enums;
 using AirportSystem.Service.DTO_s.Payments;
 using AirportSystem.Service.Extentions;
 using AirportSystem.Service.Interfaces;
+using AirportSystem.Service.Mappers;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -21,8 +22,11 @@ namespace AirportSystem.Service.Services
 
         public PaymentService(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            this.mapper = mapper;
             this.unitOfWork = unitOfWork;
+            this.mapper = new MapperConfiguration(p =>
+            {
+                p.AddProfile<MappingProfile>();
+            }).CreateMapper();
         }
 
         public async Task<Payment> CreateAsync(PaymentForCreation paymentForCreation)
@@ -57,7 +61,7 @@ namespace AirportSystem.Service.Services
             return true;
         }
 
-        public async Task<IEnumerable<Payment>> GetAllAsync(PaginationParams @params, Expression<Func<Payment, bool>> expression = null)
+        public Task<IEnumerable<Payment>> GetAllAsync(PaginationParams @params, Expression<Func<Payment, bool>> expression = null)
         {
             var exist = unitOfWork.Payments.GetAll(expression => expression.ItemState != ItemState.Deleted);
 
@@ -66,7 +70,7 @@ namespace AirportSystem.Service.Services
             if (exist is null)
                 throw new Exception("Payments not found");
 
-            return exist;
+            return Task.FromResult<IEnumerable<Payment>>(exist);
         }
 
         public async Task<Payment> GetAsync(Expression<Func<Payment, bool>> expression)

@@ -5,6 +5,7 @@ using AirportSystem.Domain.Enums;
 using AirportSystem.Service.DTO_s.Tickets;
 using AirportSystem.Service.Extentions;
 using AirportSystem.Service.Interfaces;
+using AirportSystem.Service.Mappers;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -20,8 +21,11 @@ namespace AirportSystem.Service.Services
 
         public TicketService(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            this.mapper = mapper;
             this.unitOfWork = unitOfWork;
+            this.mapper = new MapperConfiguration(p =>
+            {
+                p.AddProfile<MappingProfile>();
+            }).CreateMapper();
         }
 
         public async Task<Ticket> CreateAsync(TicketForCreation ticketForCreation)
@@ -51,7 +55,7 @@ namespace AirportSystem.Service.Services
             return true;
         }
 
-        public async Task<IEnumerable<Ticket>> GetAllAsync(PaginationParams @params, Expression<Func<Ticket, bool>> expression = null)
+        public Task<IEnumerable<Ticket>> GetAllAsync(PaginationParams @params, Expression<Func<Ticket, bool>> expression = null)
         {
             var exist = unitOfWork.Tickets.GetAll(expression => expression.ItemState != ItemState.Deleted);
 
@@ -60,7 +64,7 @@ namespace AirportSystem.Service.Services
             if (exist is null)
                 throw new Exception("Tickets not found");
 
-            return exist;
+            return Task.FromResult<IEnumerable<Ticket>>(exist);
         }
 
         public async Task<Ticket> GetAsync(Expression<Func<Ticket, bool>> expression)

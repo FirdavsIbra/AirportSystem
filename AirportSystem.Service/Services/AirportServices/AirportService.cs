@@ -10,6 +10,7 @@ using AirportSystem.Domain.Enums;
 using AirportSystem.Service.DTO_s.Airports;
 using AirportSystem.Service.Extentions;
 using AirportSystem.Service.Interfaces;
+using AirportSystem.Service.Mappers;
 using AutoMapper;
 
 namespace AirportSystem.Service.Services.AirportServices
@@ -21,8 +22,11 @@ namespace AirportSystem.Service.Services.AirportServices
 
         public AirportService(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            this.mapper = mapper;
             this.unitOfWork = unitOfWork;
+            this.mapper = new MapperConfiguration(p =>
+            {
+                p.AddProfile<MappingProfile>();
+            }).CreateMapper();
         }
      
         

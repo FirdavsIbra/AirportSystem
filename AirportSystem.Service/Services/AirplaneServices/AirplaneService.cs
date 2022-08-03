@@ -5,6 +5,7 @@ using AirportSystem.Domain.Enums;
 using AirportSystem.Service.DTO_s.Airplanes;
 using AirportSystem.Service.Extentions;
 using AirportSystem.Service.Interfaces;
+using AirportSystem.Service.Mappers;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -15,15 +16,20 @@ using System.Threading.Tasks;
 
 namespace AirportSystem.Service.Services.AirplaneServices
 {
+#pragma warning disable
+
     public class AirplaneService : IAirplaneService
     {
         private readonly IMapper mapper;
         private readonly IUnitOfWork unitOfWork;
 
-        public AirplaneService(IMapper mapper, IUnitOfWork unitOfWork)
+        public AirplaneService(IUnitOfWork unitOfWork)
         {
-            this.mapper = mapper;
             this.unitOfWork = unitOfWork;
+            this.mapper = new MapperConfiguration(p =>
+            {
+                p.AddProfile<MappingProfile>();
+            }).CreateMapper();
         }
 
         public async Task<Airplane> CreateAsync(AirplaneForCreation airplaneForCreation)

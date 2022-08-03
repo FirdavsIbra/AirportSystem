@@ -5,6 +5,7 @@ using AirportSystem.Domain.Enums;
 using AirportSystem.Service.DTO_s.Passengers;
 using AirportSystem.Service.Extentions;
 using AirportSystem.Service.Interfaces;
+using AirportSystem.Service.Mappers;
 using AutoMapper;
 using System;
 using System.Collections;
@@ -25,13 +26,16 @@ namespace AirportSystem.Service.Services
 
         public PassengerService(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            this.mapper = mapper;
             this.unitOfWork = unitOfWork;
+            this.mapper = new MapperConfiguration(p =>
+            {
+                p.AddProfile<MappingProfile>();
+            }).CreateMapper();
         }
 
         public async Task<Passenger> CreateAsync(PassengerForCreation passengerForCreation)
         {
-            var exist = await unitOfWork.Passengers.GetAsync(a => a.PassportNumber == passengerForCreation.PassportNumber);
+            var exist = await unitOfWork.Passengers.GetAsync(a => a.PassportNumber == passengerForCreation.PassportNumber && a.Email == passengerForCreation.Email);
 
             if (exist is not null)
                 throw new Exception("This Passenger already exists!");

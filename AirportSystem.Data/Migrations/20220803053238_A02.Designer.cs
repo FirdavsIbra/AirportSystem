@@ -3,15 +3,17 @@ using System;
 using AirportSystem.Data.DbContests;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AirportSystem.Data.Migrations
 {
     [DbContext(typeof(AirportSystemDbContext))]
-    partial class AirportSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220803053238_A02")]
+    partial class A02
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,7 +214,7 @@ namespace AirportSystem.Data.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("character varying(64)");
 
-                    b.Property<string>("PassportNumber")
+                    b.Property<string>("PasportNumber")
                         .HasMaxLength(16)
                         .HasColumnType("character varying(16)");
 

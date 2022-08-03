@@ -13,7 +13,6 @@ using AirportSystem.Service.Services.EmployeeServices;
 using AutoMapper;
 using System;
 using System.Threading.Tasks;
-using AirportSystem.Domain.Configurations;
 
 namespace AirportSystem
 {
@@ -24,49 +23,59 @@ namespace AirportSystem
         static async Task Main(string[] args)
         {
 
-            /*
             PassengerForCreation passengerForCreation = new PassengerForCreation()
             {
-                Address = "Argentina",
-                FirstName = "Marina",
-                LastName = "Johnson",
+                Address = "Toshkent vil",
+                FirstName = "Toxir",
+                LastName = "Khanov",
                 AgeCategory = AgeCategory.Adult,
-                CountryCode = "ARG",
-                Email = "Marianai@gmail",
-                Gender = Gender.Female,
-                PassportNumber = "OK129349",
-                Phone = "+741852963"
+                CountryCode = "Uz",
+                Email = "dlkbmfdlb@gmail.com",
+                Gender = Gender.Male,
+                PassportNumber = "24crcgveg",
+                Phone = "123456789"
             };
 
             EmployeeForCreation employeeForCreation = new EmployeeForCreation()
             {
-                Email = "Malika@gmial.com",
-                Address = "uzb",
+                Email = "bfdjkdvdasdff@gmial.com",
+                Address = "Toshkent",
                 DateOfBirth = DateTime.UtcNow,
-                FirstName = "Malika",
-                Department = Department.Cashier,
-                Gender = Gender.Female,
-                LastName = "Ahmedova",
-                PassportNumber = "AFP91234KA",
-                Password = "Malikk00",
-                Phone = "+9983312345",
-                Salary = 230000,
+                FirstName = "Toxirali",
+                Department = Department.FoodServiceWorker,
+                Gender = Gender.Male,
+                LastName = "Botiraliev",
+                PassportNumber = "AC65432435f",
+                Password = "cvfC2131@d",
+                Phone = "12345444",
+                Salary = 124232,
+
             };
-            */
+
+
+
             
 
-            IMapper mapper = new MapperConfiguration
+            IMapper Mapper = new MapperConfiguration
                 (cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
 
             AirportSystemDbContext dbContext = new AirportSystemDbContext();
-            IUnitOfWork unitOfWork = new UnitOfWork(dbContext);
-            PassengerService passengerService = new PassengerService(mapper, unitOfWork);
+            
+            using (IUnitOfWork unitOfWork = new UnitOfWork(dbContext))
+            {
+                PassengerService passengerService = new PassengerService(Mapper, unitOfWork);
+            }
+            IMapper Mapper1 = new MapperConfiguration
+                (cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
 
+            AirportSystemDbContext dbContext1 = new AirportSystemDbContext();
 
-            //PaginationParams @params = new PaginationParams(1,1);
-            //var ress = passengerService.GetAllAsync(@params);
+            using (IUnitOfWork unitOfWork1 = new UnitOfWork(dbContext1))
+            {
+                EmployeeService employeeService = new EmployeeService(Mapper1, unitOfWork1);
 
-
+                var bb = await employeeService.CreateAsync(employeeForCreation);
+            }
 
         }
     }
