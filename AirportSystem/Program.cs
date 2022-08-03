@@ -73,7 +73,8 @@ namespace AirportSystem
             using (IUnitOfWork unitOfWork1 = new UnitOfWork(dbContext1))
             {
                 EmployeeService employeeService = new EmployeeService(Mapper1, unitOfWork1);
-                var result = await employeeService.CreateAsync(employeeForCreation);
+                
+
             }
 
         }
