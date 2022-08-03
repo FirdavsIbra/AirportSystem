@@ -39,6 +39,7 @@ namespace AirportSystem.Service.Services.EmployeeServices
 
             mappedAirport.Created();
 
+            mappedAirport.Password = mappedAirport.Password.GetHash();
 
             var result = await unitOfWork.Employees.CreateAsync(mappedAirport);
 

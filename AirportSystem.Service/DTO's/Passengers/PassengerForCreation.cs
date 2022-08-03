@@ -27,6 +27,9 @@ namespace AirportSystem.Service.DTO_s.Passengers
         
         [Required(AllowEmptyStrings = false)]
         public Gender Gender { get; set; }
+        
+        [Required(AllowEmptyStrings = false)]
+        public string Password { get; set; }
 
         
         [Required(AllowEmptyStrings = false)]

@@ -40,6 +40,8 @@ namespace AirportSystem.Service.Services
             var mappedPassenger = mapper.Map<Passenger>(passengerForCreation);
 
             mappedPassenger.Created();
+            
+            mappedPassenger.Password = mappedPassenger.Password.GetHash();
 
             var result = await unitOfWork.Passengers.CreateAsync(mappedPassenger);
 
@@ -82,6 +84,39 @@ namespace AirportSystem.Service.Services
                 throw new Exception("This Passenger not found!");
 
             return exist;
+        }
+
+        public async Task<bool> CheckLoginAsync(string username, string password)
+        {
+            var oldEmp =  await unitOfWork.Employees.GetAsync(emp => emp.UserName == username && emp.Password == password);
+
+            if (oldEmp is null)
+                throw new Exception("This passanger does not exist!");
+
+            if (oldEmp.Password != password.GetHash())
+            {
+                throw new Exception("Wrong password!");
+            }
+            return true;
+        }
+
+        public async Task<Passenger> ChangePasswordAsync(PassangerForChangePassword forChangePassword)
+        {
+            var oldEmp = await unitOfWork.Passengers.GetAsync(emp => emp.UserName == forChangePassword.Username);
+            
+            if(oldEmp is null)
+                throw new Exception("This passanger does not exist!");
+            
+            if(oldEmp.Password.GetHash() != forChangePassword.OldPassword.GetHash())
+                throw new Exception("Password is wrong!");
+
+            if(forChangePassword.NewPassword != forChangePassword.ConfirmPassword)
+                throw new Exception("Passwords are not equal!");
+            
+            oldEmp.Password = forChangePassword.NewPassword.GetHash();
+            unitOfWork.Passengers.UpdateAsync(oldEmp);
+            await unitOfWork.SaveChangesAsync();
+            return oldEmp;
         }
 
         public async Task<Passenger> UpdateAsync(long id, PassengerForCreation passengerForCreation)

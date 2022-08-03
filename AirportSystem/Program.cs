@@ -25,34 +25,35 @@ namespace AirportSystem
         {
 
 
-            EmployeeForCreation employeeForCreation = new EmployeeForCreation()
+            /*EmployeeForCreation employeeForCreation = new EmployeeForCreation()
             {
-                FirstName = "Ivawdan",
-                LastName = "Ivanadadwov",
+                FirstName = "Botirali",
+                LastName = "Raxmonberdiyev",
                 UserName = "IVawda05",
                 Address = "Main str. 1",
                 Department = Department.Dispatcher,
-                Email = "Ilaa@gmail.com",
+                Email = "email@gmail.com",
                 Gender = Gender.Male,
                 Password = "iva009asada90",
                 Phone = "54872136",
                 Salary = 90000,
-                PassportNumber = "AK13021410342",
+                PassportNumber = "AK2910410481",
                 DateOfBirth = DateTime.UtcNow
-            };
+            };*/
 
-            /*PassengerForCreation passengerForCreation = new PassengerForCreation()
+            PassengerForCreation passengerForCreation = new PassengerForCreation()
             {
                 Address = "Germany",
-                FirstName = "Nouer",
+                FirstName = "Kimsanboy",
                 LastName = "Ter",
                 AgeCategory = AgeCategory.Adult,
                 CountryCode = "GER",
-                Email = "nnAgele@gmail.com",
+                Email = "nnAgAele@gmail.com",
                 Gender = Gender.Male,
-                PassportNumber = "ML120411KMl",
-                Phone = "0012456"
-            };*/
+                PassportNumber = "ML1AA20411KMl",
+                Phone = "0012456",
+                Password = "kimsanbAek0101"
+            };
             
             IMapper mapper = new MapperConfiguration
                 (cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
@@ -61,8 +62,8 @@ namespace AirportSystem
             
             using (IUnitOfWork unitOfWork = new UnitOfWork(dbContext))
             {
-                EmployeeService employeeService = new EmployeeService(mapper, unitOfWork);
-                var result = await employeeService.CreateAsync(employeeForCreation);
+                PassengerService passengerService = new PassengerService(mapper,unitOfWork);
+                var res =await passengerService.CreateAsync(passengerForCreation);
 
                 Console.WriteLine("Done");
             }
