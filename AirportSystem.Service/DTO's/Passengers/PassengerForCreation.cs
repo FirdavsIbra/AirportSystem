@@ -11,6 +11,9 @@ namespace AirportSystem.Service.DTO_s.Passengers
         
         [Required(AllowEmptyStrings = false)]
         public string LastName { get; set; }
+        
+        [Required(AllowEmptyStrings = false)]
+        public string UserName { get; set; }
 
         
         [Required(AllowEmptyStrings = false),Phone]

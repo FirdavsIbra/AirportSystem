@@ -25,35 +25,39 @@ namespace AirportSystem
         {
 
 
-            /*EmployeeForCreation employeeForCreation = new EmployeeForCreation()
+            EmployeeForCreation employeeForCreation = new EmployeeForCreation()
             {
-                FirstName = "Botirali",
-                LastName = "Raxmonberdiyev",
-                UserName = "IVawda05",
+                FirstName = "BotiraliA",
+                LastName = "Raxmonberdiyevvv",
+                UserName = "IVawdasa05",
                 Address = "Main str. 1",
                 Department = Department.Dispatcher,
-                Email = "email@gmail.com",
+                Email = "emails@gmail.com",
                 Gender = Gender.Male,
-                Password = "iva009asada90",
+                Password = "imen",
                 Phone = "54872136",
                 Salary = 90000,
-                PassportNumber = "AK2910410481",
+                PassportNumber = "AK29104A10481",
                 DateOfBirth = DateTime.UtcNow
-            };*/
+            };
 
+            /*
             PassengerForCreation passengerForCreation = new PassengerForCreation()
             {
-                Address = "Germany",
-                FirstName = "Kimsanboy",
-                LastName = "Ter",
+                Address = "Austria",
+                FirstName = "Foster",
+                LastName = "Barrett",
+                UserName = "Jimmi",
                 AgeCategory = AgeCategory.Adult,
                 CountryCode = "GER",
                 Email = "nnAgAele@gmail.com",
                 Gender = Gender.Male,
-                PassportNumber = "ML1AA20411KMl",
-                Phone = "0012456",
-                Password = "kimsanbAek0101"
+                PassportNumber = "OO001241",
+                Phone = "7845961",
+                Password = "Mert1202",
+                
             };
+            */
             
             IMapper mapper = new MapperConfiguration
                 (cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
@@ -62,9 +66,14 @@ namespace AirportSystem
             
             using (IUnitOfWork unitOfWork = new UnitOfWork(dbContext))
             {
-                PassengerService passengerService = new PassengerService(mapper,unitOfWork);
-                var res =await passengerService.CreateAsync(passengerForCreation);
-
+                EmployeeService passengerService = new EmployeeService(mapper,unitOfWork);
+                var res =await passengerService.ChangePasswordAsync(new EmployeeForChangePassword()
+                {
+                    Username = "IVawdasa05",
+                    OldPassword = "imen",
+                    NewPassword = "olim000",
+                    ConfirmPassword = "olim000"
+                });
                 Console.WriteLine("Done");
             }
         }
