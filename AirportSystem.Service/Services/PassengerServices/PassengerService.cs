@@ -7,9 +7,13 @@ using AirportSystem.Service.Extentions;
 using AirportSystem.Service.Interfaces;
 using AutoMapper;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AirportSystem.Domain.Entities.Employees;
+using AirportSystem.Service.Interfaces.IPassengerServices;
 
 namespace AirportSystem.Service.Services
 {
@@ -57,17 +61,18 @@ namespace AirportSystem.Service.Services
             return true;
         }
 
-        public async Task<IEnumerable<Passenger>> GetAllAsync(PaginationParams @params, Expression<Func<Passenger, bool>> expression = null)
+        public Task<IEnumerable<Passenger>> GetAllAsync(PaginationParams @params, Expression<Func<Passenger, bool>> expression = null)
         {
-            var exist = unitOfWork.Passengers.GetAll(expression => expression.ItemState != ItemState.Deleted);
+            var exist = unitOfWork.Passengers.GetAll(expressio => expressio.ItemState != ItemState.Deleted);
 
             exist.ToPaged(@params);
 
             if (exist is null)
-                throw new Exception("Passengers not found");
+                throw new Exception("employee not found");
 
-            return exist;
+            return Task.FromResult<IEnumerable<Passenger>>(exist);
         }
+
 
         public async Task<Passenger> GetAsync(Expression<Func<Passenger, bool>> expression)
         {
