@@ -14,6 +14,7 @@ using AutoMapper;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AirportSystem.Service.DTO_s.Orders;
 
 namespace AirportSystem
 {
@@ -24,23 +25,9 @@ namespace AirportSystem
         static async Task Main(string[] args)
         {
 
+            
 
-            EmployeeForCreation employeeForCreation = new EmployeeForCreation()
-            {
-                FirstName = "BotiraliA",
-                LastName = "Raxmonberdiyevvv",
-                UserName = "IVawdasa05",
-                Address = "Main str. 1",
-                Department = Department.Dispatcher,
-                Email = "emails@gmail.com",
-                Gender = Gender.Male,
-                Password = "imen",
-                Phone = "54872136",
-                Salary = 90000,
-                PassportNumber = "AK29104A10481",
-                DateOfBirth = DateTime.UtcNow
-            };
-
+            
             /*
             PassengerForCreation passengerForCreation = new PassengerForCreation()
             {
@@ -67,12 +54,12 @@ namespace AirportSystem
             using (IUnitOfWork unitOfWork = new UnitOfWork(dbContext))
             {
                 EmployeeService passengerService = new EmployeeService(mapper,unitOfWork);
-                var res =await passengerService.ChangePasswordAsync(new EmployeeForChangePassword()
+                var res = await passengerService.ChangePasswordAsync(new EmployeeForChangePassword()
                 {
-                    Username = "IVawdasa05",
-                    OldPassword = "imen",
-                    NewPassword = "olim000",
-                    ConfirmPassword = "olim000"
+                    Username = "JasurChaqmoq",
+                    OldPassword = "jasursdsa",
+                    NewPassword = "mert",
+                    ConfirmPassword = "mert"
                 });
                 Console.WriteLine("Done");
             }

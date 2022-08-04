@@ -39,7 +39,7 @@ namespace AirportSystem.Service.Services.EmployeeServices
 
             mappedAirport.Created();
 
-            mappedAirport.Password = mappedAirport.Password.GetHash();
+           mappedAirport.Password = mappedAirport.Password.GetHash();
 
             var result = await unitOfWork.Employees.CreateAsync(mappedAirport);
 
@@ -68,13 +68,13 @@ namespace AirportSystem.Service.Services.EmployeeServices
             if(oldEmp is null)
                 throw new Exception("This employee does not exist!");
             
-            if(oldEmp.Password.GetHash() != forChangePassword.OldPassword.GetHash())
+            if(oldEmp.Password != forChangePassword.OldPassword.GetHash())
                 throw new Exception("Password is wrong!");
 
-            if(forChangePassword.NewPassword != forChangePassword.ConfirmPassword)
+            if(forChangePassword.NewPassword.GetHash() != forChangePassword.ConfirmPassword.GetHash())
                 throw new Exception("Passwords are not equal!");
             
-            oldEmp.Password = forChangePassword.NewPassword.GetHash();
+            oldEmp.Password = forChangePassword.NewPassword;
             unitOfWork.Employees.UpdateAsync(oldEmp);
             await unitOfWork.SaveChangesAsync();
             return oldEmp;

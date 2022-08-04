@@ -9,8 +9,10 @@ using AirportSystem.Service.Mappers;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace AirportSystem.Service.Services
 {
@@ -65,8 +67,11 @@ namespace AirportSystem.Service.Services
 
         public  Task<IEnumerable<Order>> GetAllAsync(PaginationParams @params, Expression<Func<Order, bool>> expression = null)
         {
-            var exist = unitOfWork.Orders.GetAll(expression => expression.ItemState != ItemState.Deleted);
-
+            var exist = unitOfWork.Orders.GetAll(expression)
+                .Where(expressio => expressio.ItemState == ItemState.Deleted)
+                .Include(o => o.Passenger)
+                .Include(o => o.IsPaid == true)
+                .Include(o => o.Ticket);
             exist.ToPaged(@params);
 
             if (exist is null)
