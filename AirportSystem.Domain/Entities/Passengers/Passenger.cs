@@ -25,5 +25,7 @@ namespace AirportSystem.Domain.Entities.Passengers
         public string CountryCode { get; set; }
         public string Address { get; set; }
         public AgeCategory AgeCategory { get; set; }
+        public bool IsBlackList { get; set; } = false;
+
     }
 }

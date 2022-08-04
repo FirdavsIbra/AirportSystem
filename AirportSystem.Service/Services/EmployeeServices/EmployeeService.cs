@@ -39,45 +39,13 @@ namespace AirportSystem.Service.Services.EmployeeServices
 
             mappedAirport.Created();
 
-           mappedAirport.Password = mappedAirport.Password.GetHash();
+            mappedAirport.Password = mappedAirport.Password.GetHash();
 
             var result = await unitOfWork.Employees.CreateAsync(mappedAirport);
 
             await unitOfWork.SaveChangesAsync();
 
             return result;
-        }
-
-        public async Task<bool> CheckLoginAsync(string username, string password)
-        {
-            var oldEmp =  await unitOfWork.Employees.GetAsync(emp => emp.UserName == username && emp.Password == password);
-
-            if (oldEmp is null)
-                throw new Exception("This employee does not exist!");
-
-            if (oldEmp.Password != password.GetHash())
-            {
-                throw new Exception("Wrong password!");
-            }
-            return true;
-        }
-        public async Task<Employee> ChangePasswordAsync(EmployeeForChangePassword forChangePassword)
-        {
-            var oldEmp = await unitOfWork.Employees.GetAsync(emp => emp.UserName == forChangePassword.Username);
-            
-            if(oldEmp is null)
-                throw new Exception("This employee does not exist!");
-            
-            if(oldEmp.Password != forChangePassword.OldPassword.GetHash())
-                throw new Exception("Password is wrong!");
-
-            if(forChangePassword.NewPassword.GetHash() != forChangePassword.ConfirmPassword.GetHash())
-                throw new Exception("Passwords are not equal!");
-            
-            oldEmp.Password = forChangePassword.NewPassword;
-            unitOfWork.Employees.UpdateAsync(oldEmp);
-            await unitOfWork.SaveChangesAsync();
-            return oldEmp;
         }
 
         public async Task<Employee> UpdateAsync(long id, EmployeeForCreation employeeForCreation)
@@ -135,6 +103,57 @@ namespace AirportSystem.Service.Services.EmployeeServices
             return exist;
         }
 
-      
+        public async Task<bool> CheckLoginAsync(string username, string password)
+        {
+            var oldEmp = await unitOfWork.Employees.GetAsync(emp => emp.UserName == username && emp.Password == password);
+
+            if (oldEmp is null)
+                throw new Exception("This employee not found");
+
+            if (oldEmp.Password != password.GetHash())
+            {
+                throw new Exception("Wrong password!");
+            }
+            return true;
+        }
+
+        public async Task<Employee> ChangePasswordAsync(EmployeeForChangePassword forChangePassword)
+        {
+            var oldEmp = await unitOfWork.Employees.GetAsync(emp => emp.UserName == forChangePassword.Username);
+
+            if (oldEmp is null)
+                throw new Exception("This employee does not exist!");
+
+            if (oldEmp.Password.GetHash() != forChangePassword.OldPassword.GetHash())
+                throw new Exception("Password is wrong!");
+
+            if (forChangePassword.NewPassword != forChangePassword.ConfirmPassword)
+                throw new Exception("Passwords are not equal!");
+
+            oldEmp.Password = forChangePassword.NewPassword.GetHash();
+            unitOfWork.Employees.UpdateAsync(oldEmp);
+            await unitOfWork.SaveChangesAsync();
+            return oldEmp;
+        }
+
+        public async Task<Employee> GivingBonus(Expression<Func<Employee, bool>> expression)
+        {
+            var employee = await unitOfWork.Employees.GetAsync(expression);
+
+            if(employee.DateOfBirth == DateTime.Now)
+            {
+                employee.Salary = employee.Salary + (employee.Salary * (int)0.5);
+
+                employee.Updated();
+
+                var res = unitOfWork.Employees.UpdateAsync(employee);
+
+                await unitOfWork.SaveChangesAsync();
+
+                return res;
+            }
+
+            return employee;
+        }
     }
 }

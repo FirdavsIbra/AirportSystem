@@ -2,16 +2,17 @@
 using AirportSystem.Domain.Configurations;
 using AirportSystem.Domain.Entities.Passengers;
 using AirportSystem.Domain.Enums;
+using AirportSystem.Service.DTO_s.BlackLists;
 using AirportSystem.Service.DTO_s.Passengers;
 using AirportSystem.Service.Extentions;
 using AirportSystem.Service.Interfaces;
+using AirportSystem.Service.Interfaces.IPassengerServices;
 using AirportSystem.Service.Mappers;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using AirportSystem.Service.Interfaces.IPassengerServices;
 
 namespace AirportSystem.Service.Services
 {
@@ -86,10 +87,6 @@ namespace AirportSystem.Service.Services
             return exist;
         }
 
-       
-
-       
-
         public async Task<Passenger> UpdateAsync(long id, PassengerForCreation passengerForCreation)
         {
             var exist = await unitOfWork.Passengers.GetAsync(a => a.Id == id);
@@ -109,5 +106,22 @@ namespace AirportSystem.Service.Services
             return result;
 
         }
+
+        public async Task<bool> CheckingBlacklist(Expression<Func<Passenger, bool>> expression)
+        {
+            var passenger = await unitOfWork.Passengers.GetAsync(expression);
+
+            var duration = new BlackListForCreation();
+
+            if (passenger.IsBlackList)
+            {
+                if ((duration.Duration - DateTime.Now).TotalMinutes != 0)
+                    return true;
+                return false;
+            }
+
+            return false;
+        }
+
     }
 }

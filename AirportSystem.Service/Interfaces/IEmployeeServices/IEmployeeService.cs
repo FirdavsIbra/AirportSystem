@@ -17,6 +17,7 @@ namespace AirportSystem.Service.Interfaces
         Task<Employee> GetAsync(Expression<Func<Employee, bool>> expression);
         Task<bool> CheckLoginAsync(string username, string password);
         Task<Employee> ChangePasswordAsync(EmployeeForChangePassword forChangePassword);
+        Task<Employee> GivingBonus(Expression<Func<Employee, bool>> expression);
 
     }
 }

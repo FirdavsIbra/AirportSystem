@@ -45,5 +45,7 @@ namespace AirportSystem.Service.DTO_s.Passengers
         
         [Required(AllowEmptyStrings = false)]
         public AgeCategory AgeCategory { get; set; }
+
+        public bool IsBlackList { get; set; } = false;
     }
 }
