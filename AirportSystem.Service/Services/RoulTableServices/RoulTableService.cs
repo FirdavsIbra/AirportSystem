@@ -9,6 +9,7 @@ using AirportSystem.Service.Mappers;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -55,17 +56,15 @@ namespace AirportSystem.Service.Services
             return true;
         }
 
-        public Task<IEnumerable<RouleTable>> GetAllAsync(PaginationParams @params, Expression<Func<RouleTable, bool>> expression = null)
+        public Task<IEnumerable<RouleTable>> GetAllAsync(Expression<Func<RouleTable, bool>> expression = null, Tuple<int, int> pagination = null)
         {
-            var exist = unitOfWork.RouleTables.GetAll(expression => expression.ItemState != ItemState.Deleted);
+            var result = unitOfWork.RouleTables.GetAll(expression)
+                .Where(client => client.ItemState != ItemState.Deleted)
+                .GetWithPagination(pagination);
 
-            exist.ToPaged(@params);
-
-            if (exist is null)
-                throw new Exception("RouleTables not found");
-
-            return Task.FromResult<IEnumerable<RouleTable>>(exist);
+            return Task.FromResult(result);
         }
+
 
         public async Task<RouleTable> GetAsync(Expression<Func<RouleTable, bool>> expression)
         {

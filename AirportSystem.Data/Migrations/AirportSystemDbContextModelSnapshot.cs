@@ -308,6 +308,9 @@ namespace AirportSystem.Data.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("IsBlackList")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("ItemState")
                         .HasColumnType("integer");
 

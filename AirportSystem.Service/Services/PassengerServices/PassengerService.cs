@@ -11,6 +11,7 @@ using AirportSystem.Service.Mappers;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -65,17 +66,15 @@ namespace AirportSystem.Service.Services
             return true;
         }
 
-        public Task<IEnumerable<Passenger>> GetAllAsync(PaginationParams @params, Expression<Func<Passenger, bool>> expression = null)
+        public Task<IEnumerable<Passenger>> GetAllAsync(Expression<Func<Passenger, bool>> expression = null, Tuple<int, int> pagination = null)
         {
-            var exist = unitOfWork.Passengers.GetAll(expression => expression.ItemState != ItemState.Deleted);
+            var result = unitOfWork.Passengers.GetAll(expression)
+                .Where(client => client.ItemState != ItemState.Deleted)
+                .GetWithPagination(pagination);
 
-            exist.ToPaged(@params);
-
-            if (exist is null)
-                throw new Exception("Passengers not found");
-
-            return Task.FromResult<IEnumerable<Passenger>>(exist);
+            return Task.FromResult(result);
         }
+
 
         public async Task<Passenger> GetAsync(Expression<Func<Passenger, bool>> expression)
         {

@@ -13,7 +13,7 @@ namespace AirportSystem.Service.Interfaces
         Task<BlackList> CreateAsync(BlackListForCreation blackListForCreation);
         Task<BlackList> UpdateAsync(long id, BlackListForCreation blackListForCreation);
         Task<bool> DeleteAsync(Expression<Func<BlackList, bool>> expression);
-        Task<IEnumerable<BlackList>> GetAllAsync(PaginationParams @params, Expression<Func<BlackList, bool>> expression = null);
+        Task<IEnumerable<BlackList>> GetAllAsync( Expression<Func<BlackList, bool>> expression = null,Tuple<int,int> pagination =null);
         Task<BlackList> GetAsync(Expression<Func<BlackList, bool>> expression);
     }
 }

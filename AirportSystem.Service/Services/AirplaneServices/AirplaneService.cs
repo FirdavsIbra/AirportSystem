@@ -64,6 +64,15 @@ namespace AirportSystem.Service.Services.AirplaneServices
             return true;
         }
 
+        public async Task<IEnumerable<Airplane>> GetAllAsync(Expression<Func<Airplane, bool>> expression = null, Tuple<int, int> pagination = null)
+        {
+            var result = unitOfWork.Airplanes.GetAll(expression)
+                .Where(client => client.ItemState != ItemState.Deleted)
+                    .GetWithPagination(pagination);
+
+            return result;
+        }
+
         public Task<IEnumerable<Airplane>> GetAllAsync(PaginationParams @params, Expression<Func<Airplane, bool>> expression = null)
         {
             var exist = unitOfWork.Airplanes.GetAll(expression => expression.ItemState != ItemState.Deleted);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AirportSystem.Data.IRepositories.ICommonRepo;
@@ -44,6 +45,8 @@ namespace AirportSystem.Service.Services.BlackListServices
             await unitOfWork.SaveChangesAsync();
 
             return result;
+            
+            
         }
 
         public async Task<BlackList> UpdateAsync(long id, BlackListForCreation blackListForCreation)
@@ -80,17 +83,15 @@ namespace AirportSystem.Service.Services.BlackListServices
 
         }
 
-        public Task<IEnumerable<BlackList>> GetAllAsync(PaginationParams @params, Expression<Func<BlackList, bool>> expression = null)
+        public Task<IEnumerable<BlackList>> GetAllAsync(Expression<Func<BlackList, bool>> expression = null, Tuple<int, int> pagination = null)
         {
-            var exist = unitOfWork.BlackLists.GetAll(expression => expression.ItemState != ItemState.Deleted);
+            var result = unitOfWork.BlackLists.GetAll(expression)
+                .Where(client => client.ItemState != ItemState.Deleted)
+                .GetWithPagination(pagination);
 
-            exist.ToPaged(@params);
-
-            if (exist is null)
-                throw new Exception("blacklists not found");
-
-            return Task.FromResult<IEnumerable<BlackList>>(exist);
+            return Task.FromResult(result);
         }
+
 
         public async Task<BlackList> GetAsync(Expression<Func<BlackList, bool>> expression)
         {
