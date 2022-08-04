@@ -44,10 +44,6 @@ namespace AirportSystem.Data.Repositories.CommonRepo
 
         public IQueryable<T> GetAll(Expression<Func<T, bool>> expression = null)
             => expression is null ? _dbSet : _dbSet.Where(expression);
-        
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
+
     }
 }
