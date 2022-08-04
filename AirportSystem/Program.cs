@@ -41,41 +41,53 @@ namespace AirportSystem
                 DateOfBirth = DateTime.UtcNow
             };
 
-            /*
-            PassengerForCreation passengerForCreation = new PassengerForCreation()
-            {
-                Address = "Austria",
-                FirstName = "Foster",
-                LastName = "Barrett",
-                UserName = "Jimmi",
-                AgeCategory = AgeCategory.Adult,
-                CountryCode = "GER",
-                Email = "nnAgAele@gmail.com",
-                Gender = Gender.Male,
-                PassportNumber = "OO001241",
-                Phone = "7845961",
-                Password = "Mert1202",
-                
-            };
-            */
-            
             IMapper mapper = new MapperConfiguration
                 (cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
 
             AirportSystemDbContext dbContext = new AirportSystemDbContext();
-            
+
             using (IUnitOfWork unitOfWork = new UnitOfWork(dbContext))
             {
-                EmployeeService passengerService = new EmployeeService(mapper,unitOfWork);
-                var res =await passengerService.ChangePasswordAsync(new EmployeeForChangePassword()
+                IPassengerService passenger = new PassengerService(mapper, unitOfWork);
+
+                PassengerForCreation passengerForCreation = new PassengerForCreation()
                 {
-                    Username = "IVawdasa05",
-                    OldPassword = "imen",
-                    NewPassword = "olim000",
-                    ConfirmPassword = "olim000"
-                });
-                Console.WriteLine("Done");
+                    Address = "Austria",
+                    FirstName = "Foster",
+                    LastName = "Barrett",
+                    UserName = "Jimmi",
+                    AgeCategory = AgeCategory.Adult,
+                    CountryCode = "GER",
+                    Email = "nnAgAele@gmail.com",
+                    Gender = Gender.Male,
+                    PassportNumber = "OO001241",
+                    Phone = "7845961",
+                    Password = "Mert1202",
+
+                };
+
+                //unitOfWork.Passengers.CreateAsync(passengerForCreation);
             }
+
+
+
+            //IMapper mapper = new MapperConfiguration
+            //    (cfg => cfg.AddProfile<MappingProfile>()).CreateMapper();
+
+            //AirportSystemDbContext dbContext = new AirportSystemDbContext();
+
+            //using (IUnitOfWork unitOfWork = new UnitOfWork(dbContext))
+            //{
+            //    EmployeeService passengerService = new EmployeeService(mapper, unitOfWork);
+            //    var res = await passengerService.ChangePasswordAsync(new EmployeeForChangePassword()
+            //    {
+            //        Username = "IVawdasa05",
+            //        OldPassword = "imen",
+            //        NewPassword = "olim000",
+            //        ConfirmPassword = "olim000"
+            //    });
+            //    Console.WriteLine("Done");
+            //}
         }
     }
 }

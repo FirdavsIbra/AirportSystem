@@ -32,11 +32,11 @@ namespace AirportSystem.Service.Services.DeleteForAdmins
                 if (result is false)
                 {
                     break;
-                    await _repository.SaveChangesAsync();
-                    return true;
+               //     await _repository.SaveChangesAsync();
+                 //   return true;
                 }
 
-                await _repository.SaveChangesAsync();
+              //  await _repository.SaveChangesAsync();
             }
             
 
@@ -47,7 +47,7 @@ namespace AirportSystem.Service.Services.DeleteForAdmins
         {
             var result = await _repository.DeleteAsync(expression);
 
-            await _repository.SaveChangesAsync();
+          //  await _repository.SaveChangesAsync();
 
             return result;
         }
