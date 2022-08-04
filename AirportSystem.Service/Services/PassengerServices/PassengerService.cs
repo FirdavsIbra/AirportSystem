@@ -116,8 +116,8 @@ namespace AirportSystem.Service.Services
             if (passenger.IsBlackList)
             {
                 if ((duration.Duration - DateTime.Now).TotalMinutes != 0)
-                    return true;
-                return false;
+                    return false;
+                return true;
             }
 
             return false;

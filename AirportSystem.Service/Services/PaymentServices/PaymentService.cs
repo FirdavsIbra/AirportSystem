@@ -33,14 +33,26 @@ namespace AirportSystem.Service.Services
         {
             var exist = await unitOfWork.Payments.GetAsync(a => a.OrderId == paymentForCreation.OrderId);
 
-            if (exist is not null)
-                throw new Exception("This Payment already exists!");
+            var order = await unitOfWork.Orders.GetAsync(o => o.Id == paymentForCreation.OrderId);
 
+            if (order is null || order.IsPaid)
+                throw new Exception("Order not found");
+
+            var passenger = await unitOfWork.Passengers.GetAsync(p => p.Id == order.PassengerId);
+
+            if (passenger is null)
+                throw new Exception("This passenger not found");
+
+            order.IsPaid = true;
+            order.Updated();
+            
             var mappedPayment = mapper.Map<Payment>(paymentForCreation);
 
             mappedPayment.Created();
 
             var result = await unitOfWork.Payments.CreateAsync(mappedPayment);
+
+            unitOfWork.Orders.UpdateAsync(order);
 
             await unitOfWork.SaveChangesAsync();
 
