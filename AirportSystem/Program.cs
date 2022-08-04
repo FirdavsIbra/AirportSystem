@@ -6,6 +6,7 @@ using AirportSystem.Service.DTO_s.Airplanes;
 using AirportSystem.Service.DTO_s.Employees;
 using AirportSystem.Service.DTO_s.Passengers;
 using AirportSystem.Service.Interfaces;
+using AirportSystem.Service.Interfaces.IPassengerServices;
 using AirportSystem.Service.Mappers;
 using AirportSystem.Service.Services;
 using AirportSystem.Service.Services.AirplaneServices;
