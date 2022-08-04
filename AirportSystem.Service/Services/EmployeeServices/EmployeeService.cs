@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AirportSystem.Data.IRepositories.ICommonRepo;
@@ -9,6 +10,7 @@ using AirportSystem.Domain.Enums;
 using AirportSystem.Service.DTO_s.Employees;
 using AirportSystem.Service.Extentions;
 using AirportSystem.Service.Interfaces;
+using AirportSystem.Service.Interfaces.IEmployeeServices;
 using AirportSystem.Service.Mappers;
 using AutoMapper;
 
@@ -81,18 +83,16 @@ namespace AirportSystem.Service.Services.EmployeeServices
             return true;
         }
 
-        public Task<IEnumerable<Employee>> GetAllAsync(PaginationParams @params, Expression<Func<Employee, bool>> expression = null)
+        public Task<IEnumerable<Employee>> GetAllAsync(Expression<Func<Employee, bool>> expression = null, Tuple<int, int> pagination = null)
         {
-            var exist = unitOfWork.Employees.GetAll(e => e.ItemState != ItemState.Deleted);
+            var result = unitOfWork.Employees.GetAll(expression)
+                .Where(client => client.ItemState != ItemState.Deleted)
+                .GetWithPagination(pagination);
 
-            exist.ToPaged(@params);
-
-            if (exist is null)
-                throw new Exception("employee not found");
-
-            return Task.FromResult<IEnumerable<Employee>>(exist);
+            return Task.FromResult(result);
         }
 
+       
         public async Task<Employee> GetAsync(Expression<Func<Employee, bool>> expression)
         {
             var exist = await unitOfWork.Employees.GetAsync(expression);

@@ -14,7 +14,7 @@ namespace AirportSystem.Service.Interfaces
         Task<Airport> CreateAsync(AirportForCreation airportForCreation);
         Task<Airport> UpdateAsync(long id, AirportForCreation airportForCreation);
         Task<bool> DeleteAsync(Expression<Func<Airport, bool>> expression);
-        Task<IEnumerable<Airport>> GetAllAsync(PaginationParams @params, Expression<Func<Airport, bool>> expression = null);
+        Task<IEnumerable<Airport>> GetAllAsync(Expression<Func<Airport, bool>> expression = null,Tuple<int,int> pagination=null);
         Task<Airport> GetAsync(Expression<Func<Airport, bool>> expression);
     }
 }

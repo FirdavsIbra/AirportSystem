@@ -10,10 +10,10 @@ namespace AirportSystem.Service.Interfaces
 {
     public interface IPaymentService
     {
-        Task<Payment> CreateAsync(PaymentForCreation PaymentForCreation);
-        Task<Payment> UpdateAsync(long id, PaymentForCreation PaymentForCreation);
+        Task<Payment> CreateAsync(PaymentForCreation paymentForCreation);
+        Task<Payment> UpdateAsync(long id, PaymentForCreation paymentForCreation);
         Task<bool> DeleteAsync(Expression<Func<Payment, bool>> expression);
-        Task<IEnumerable<Payment>> GetAllAsync(PaginationParams @params, Expression<Func<Payment, bool>> expression = null);
+        Task<IEnumerable<Payment>> GetAllAsync(Expression<Func<Payment, bool>> expression = null,Tuple<int,int> pagination =null);
         Task<Payment> GetAsync(Expression<Func<Payment, bool>> expression);
     }
 }

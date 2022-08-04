@@ -13,7 +13,7 @@ namespace AirportSystem.Service.Interfaces.IPassengerServices
         Task<Passenger> CreateAsync(PassengerForCreation passengerForCreation);
         Task<Passenger> UpdateAsync(long id, PassengerForCreation passengerForCreation);
         Task<bool> DeleteAsync(Expression<Func<Passenger, bool>> expression);
-        Task<IEnumerable<Passenger>> GetAllAsync(PaginationParams @params = null, Expression<Func<Passenger, bool>> expression = null);
+        Task<IEnumerable<Passenger>> GetAllAsync(Expression<Func<Passenger, bool>> expression = null,Tuple<int,int> pagination =null);
         Task<Passenger> GetAsync(Expression<Func<Passenger, bool>> expression);
         Task<bool> CheckingBlacklist(Expression<Func<Passenger, bool>> expression);
        

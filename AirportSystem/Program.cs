@@ -14,6 +14,11 @@ using AutoMapper;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AirportSystem.Domain.Configurations;
+using AirportSystem.Service.DTO_s.BlackLists;
+using AirportSystem.Service.Interfaces.IEmployeeServices;
+using AirportSystem.Service.Interfaces.IPassengerServices;
+using AirportSystem.Service.Services.BlackListServices;
 
 namespace AirportSystem
 {
@@ -49,8 +54,9 @@ namespace AirportSystem
             using (IUnitOfWork unitOfWork = new UnitOfWork(dbContext))
             {
                 IPassengerService passenger = new PassengerService(mapper, unitOfWork);
-
-                PassengerForCreation passengerForCreation = new PassengerForCreation()
+                IBlackListService blackList = new BlackListService(mapper, unitOfWork);
+                IEmployeeService employee = new EmployeeService(mapper, unitOfWork);
+                /*PassengerForCreation passengerForCreation = new PassengerForCreation()
                 {
                     Address = "Austria",
                     FirstName = "Foster",
@@ -63,10 +69,22 @@ namespace AirportSystem
                     PassportNumber = "OO001241",
                     Phone = "7845961",
                     Password = "Mert1202",
+                    IsBlackList = true
 
                 };
+                */
 
-                //unitOfWork.Passengers.CreateAsync(passengerForCreation);
+               
+                
+                var res = employee.GetAllAsync(pagination: Tuple.Create(2, 5) );
+                
+                foreach( var item in res.Result)
+                {
+                    Console.WriteLine(item.FirstName);
+                }
+
+                
+                
             }
 
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AirportSystem.Data.IRepositories.ICommonRepo;
@@ -81,16 +82,13 @@ namespace AirportSystem.Service.Services.AirportServices
             return true;
         }
 
-        public Task<IEnumerable<Airport>> GetAllAsync(PaginationParams @params, Expression<Func<Airport, bool>> expression = null)
+        public Task<IEnumerable<Airport>> GetAllAsync(Expression<Func<Airport, bool>> expression = null, Tuple<int, int> pagination = null)
         {
-            var exist = unitOfWork.Airports.GetAll(expression => expression.ItemState != ItemState.Deleted);
+            var result = unitOfWork.Airports.GetAll(expression)
+                .Where(client => client.ItemState != ItemState.Deleted)
+                .GetWithPagination(pagination);
 
-            exist.ToPaged(@params);
-
-            if (exist is null)
-                throw new Exception("Airplanes not found");
-
-            return Task.FromResult<IEnumerable<Airport>>(exist);
+            return Task.FromResult(result);
         }
 
 

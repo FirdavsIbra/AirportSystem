@@ -32,9 +32,8 @@ namespace AirportSystem.Service.Services.DeleteForAdmins
                 if (result is false)
                 {
                     break;
-               //     await _repository.SaveChangesAsync();
-                 //   return true;
                 }
+                
 
               //  await _repository.SaveChangesAsync();
             }
