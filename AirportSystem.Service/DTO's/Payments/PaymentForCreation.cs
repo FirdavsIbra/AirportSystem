@@ -11,5 +11,6 @@ namespace AirportSystem.Service.DTO_s.Payments
         
         [Required(AllowEmptyStrings = false)]
         public long OrderId { get; set; }
+        
     }
 }
